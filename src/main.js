@@ -1,4 +1,5 @@
 import "./css/index.css"
+import IMask from "imask"
 
 const creditCardBgColor01 = document.querySelector(
   ".cc-bg-mask-color-1 ellipse"
@@ -20,7 +21,6 @@ function setCardType(type) {
     elo: ["#ef4123", "#00a4e0", "#00bbff", "#4dcfff", "#121212"],
     amex: ["#ffffff", "#00374D", "#005B80", "#0077A6", "#121212"],
     hipercard: ["#822124", "#822124", "#A3292D", "#CC3338", "#121212"],
-    banrisul: ["#00D9CB", "#0788FE", "#A06FFE", "#00D9CB", "#121212"],
     diners: ["#1C3163", "#00374D", "#2D4F9E", "#9CB1E3", "#121212"],
     default: ["#ffffff", "#999797", "#5e5e5e", "#424242", "#121212"],
   }
@@ -35,3 +35,77 @@ function setCardType(type) {
 }
 
 globalThis.setCardType = setCardType
+
+const securityCode = document.querySelector("#security-code")
+const securityCodePattern = {
+  mask: "0000",
+}
+const securityCodeMasked = IMask(securityCode, securityCodePattern)
+
+const expirationDate = document.querySelector("#expiration-date")
+const expirationDatePattern = {
+  mask: "MM{/}YY",
+  blocks: {
+    MM: {
+      mask: IMask.MaskedRange,
+      from: 1,
+      to: 12,
+    },
+    YY: {
+      mask: IMask.MaskedRange,
+      from: String(new Date().getFullYear()).slice(2),
+      to: String(new Date().getFullYear() + 10).slice(2),
+    },
+  },
+}
+const expirationDateMasked = IMask(expirationDate, expirationDatePattern)
+
+const cardNumber = document.querySelector("#card-number")
+const cardNumberPattern = {
+  mask: [
+    {
+      mask: "0000 0000 0000 0000",
+      regex: /^4[0-9]{12}(?:[0-9]{3})?$/,
+      cardType: "visa",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex:
+        /^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/,
+      cardType: "mastercard",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex:
+        /^(4011(78|79)|43(1274|8935)|45(1416|7393|763(1|2))|50(4175|6699|67[0-7][0-9]|9000)|50(9[0-9][0-9][0-9])|627780|63(6297|6368)|650(03([^4])|04([0-9])|05(0|1)|05([7-9])|06([0-9])|07([0-9])|08([0-9])|4([0-3][0-9]|8[5-9]|9[0-9])|5([0-9][0-9]|3[0-8])|9([0-6][0-9]|7[0-8])|7([0-2][0-9])|541|700|720|727|901)|65165([2-9])|6516([6-7][0-9])|65500([0-9])|6550([0-5][0-9])|655021|65505([6-7])|6516([8-9][0-9])|65170([0-4]))/,
+      cardType: "elo",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex: /^3[47][0-9]{13}$/,
+      cardType: "amex",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex: /^606282|^3841(?:[0|4|6]{1})0/,
+      cardType: "hipercard",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
+      cardType: "diners",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      cardType: "default",
+    },
+  ],
+  dispatch: function (appended, dynamicMasked) {
+    const number = (dynamicMasked.value + appended).replace(/\D/g, "")
+    const foundMask = dynamicMasked.compiledMasks.find(function (item) {
+      return number.match(item.regex)
+    })
+    return foundMask
+  },
+}
+const cardNumberMasked = IMask(cardNumber, cardNumberPattern)
