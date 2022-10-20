@@ -11,7 +11,7 @@ const creditCardLogo = document.querySelector(".cc-logo span:nth-child(2) img")
 function setCardType(type) {
   const colors = {
     visa: ["#DFA43B", "#1248FF", "#2051FE", "#244FEA", "#121212"],
-    mastercard: ["#F79E1B", "#CC0018", "#EB001B", "#FF334B", "#121212"],
+    mastercard: ["#F79E1B", "#CC0018", "#EB001B", "#7a000e", "#121212"],
     elo: ["#ef4123", "#00a4e0", "#00bbff", "#4dcfff", "#121212"],
     amex: ["#ffffff", "#00374D", "#005B80", "#0077A6", "#121212"],
     hipercard: ["#822124", "#822124", "#A3292D", "#CC3338", "#121212"],
@@ -110,6 +110,7 @@ cardHolder.addEventListener("input", () => {
 })
 
 securityCodeMasked.on("accept", () => {
+  fieldsVerify()
   updateSecurityCode(securityCodeMasked.value)
 })
 
@@ -120,6 +121,7 @@ function updateSecurityCode(code) {
 }
 
 cardNumberMasked.on("accept", () => {
+  fieldsVerify()
   const cardType = cardNumberMasked.masked.currentMask.cardType
   setCardType(cardType)
   updateCardNumber(cardNumberMasked.value)
@@ -131,6 +133,7 @@ function updateCardNumber(number) {
 }
 
 expirationDateMasked.on("accept", () => {
+  fieldsVerify()
   updateExpirationDate(expirationDateMasked.value)
 })
 
@@ -180,6 +183,16 @@ addButton.addEventListener("click", () => {
     : alert("Cartão inválido!")
 })
 
-document.querySelector("form").addEventListener("submit", (event) => {
+function fieldsVerify() {
+  if (cardNumber.value.length === 0 || securityCode.value.length === 0 || expirationDate.value.length === 0) {
+    addButton.setAttribute("disabled", true)
+  } else {
+    addButton.removeAttribute("disabled")
+  }
+}
+
+fieldsVerify()
+
+const creditCardForm = document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault()
 })
