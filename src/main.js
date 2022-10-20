@@ -1,15 +1,9 @@
 import "./css/index.css"
 import IMask from "imask"
 
-const creditCardBgColor01 = document.querySelector(
-  ".cc-bg-mask-color-1 ellipse"
-)
-const creditCardBgColor02 = document.querySelector(
-  ".cc-bg-mask-color-2 ellipse"
-)
-const creditCardBgColor03 = document.querySelector(
-  ".cc-bg-mask-color-3 ellipse"
-)
+const creditCardBgColor01 = document.querySelector(".cc-bg-mask-color-1 ellipse")
+const creditCardBgColor02 = document.querySelector(".cc-bg-mask-color-2 ellipse")
+const creditCardBgColor03 = document.querySelector(".cc-bg-mask-color-3 ellipse")
 const creditCardBgColor04 = document.querySelector(".cc-bg-mask-color-4 path")
 const creditCardBgColor05 = document.querySelector(".cc-bg-mask-color-5 path")
 const creditCardLogo = document.querySelector(".cc-logo span:nth-child(2) img")
@@ -70,8 +64,7 @@ const cardNumberPattern = {
     },
     {
       mask: "0000 0000 0000 0000",
-      regex:
-        /^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/,
+      regex: /^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/,
       cardType: "mastercard",
     },
     {
@@ -109,3 +102,84 @@ const cardNumberPattern = {
   },
 }
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern)
+
+const cardHolder = document.querySelector("#card-holder")
+cardHolder.addEventListener("input", () => {
+  const creditCardHolder = document.querySelector(".cc-holder .value")
+  creditCardHolder.innerText = cardHolder.value.length === 0 ? "SEU NOME AQUI" : cardHolder.value
+})
+
+securityCodeMasked.on("accept", () => {
+  updateSecurityCode(securityCodeMasked.value)
+})
+
+function updateSecurityCode(code) {
+  const creditCardSecurity = document.querySelector(".cc-security .value")
+
+  creditCardSecurity.innerText = code.length === 0 ? "123" : code
+}
+
+cardNumberMasked.on("accept", () => {
+  const cardType = cardNumberMasked.masked.currentMask.cardType
+  setCardType(cardType)
+  updateCardNumber(cardNumberMasked.value)
+})
+
+function updateCardNumber(number) {
+  const creditCardNumber = document.querySelector(".cc-number")
+  creditCardNumber.innerText = number.length === 0 ? "1234 5678 9012 3456" : number
+}
+
+expirationDateMasked.on("accept", () => {
+  updateExpirationDate(expirationDateMasked.value)
+})
+
+function updateExpirationDate(date) {
+  const creditCardExpirationDate = document.querySelector(".cc-expiration .value")
+
+  creditCardExpirationDate.innerText = date.length === 0 ? "00/00" : date
+}
+
+function luhnCheckSum(val) {
+  let checksum = 0
+  let j = 1
+
+  for (let i = val.length - 1; i >= 0; i--) {
+    let calc = 0
+    calc = Number(val.charAt(i)) * j
+
+    if (calc > 9) {
+      checksum = checksum + 1
+      calc = calc - 10
+    }
+
+    checksum = checksum + calc
+
+    if (j == 1) {
+      j = 2
+    } else {
+      j = 1
+    }
+  }
+
+  return checksum % 10 == 0
+}
+
+function validateCardNumber(number) {
+  const regex = new RegExp("^[0-9]{13,19}$")
+  if (!regex.test(number)) {
+    return false
+  }
+  return luhnCheckSum(number)
+}
+
+const addButton = document.querySelector("#add-card")
+addButton.addEventListener("click", () => {
+  validateCardNumber(cardNumberMasked.masked.unmaskedValue) === true
+    ? alert("Cartão salvo com sucesso!")
+    : alert("Cartão inválido!")
+})
+
+document.querySelector("form").addEventListener("submit", (event) => {
+  event.preventDefault()
+})

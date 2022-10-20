@@ -1,6 +1,7 @@
 {
   // editor
   "editor.wordWrap": "on",
+  "editor.wordWrapColumn": 200,
   "editor.fontSize": 15,
   "editor.lineHeight": 30,
   "editor.tabSize": 2,

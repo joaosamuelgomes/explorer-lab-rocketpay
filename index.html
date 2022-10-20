@@ -9,10 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rocketpay</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="app">
@@ -22,13 +19,7 @@
 
       <section class="cc">
         <div class="cc-bg">
-          <svg
-            width="360"
-            height="230"
-            viewBox="0 0 360 230"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <svg width="360" height="230" viewBox="0 0 360 230" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask
               id="mask0_1304_1931"
               style="mask-type: alpha"
@@ -98,16 +89,8 @@
                 color-interpolation-filters="sRGB"
               >
                 <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="BackgroundImageFix"
-                  result="shape"
-                />
-                <feGaussianBlur
-                  stdDeviation="50.6104"
-                  result="effect1_foregroundBlur_1304_1931"
-                />
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                <feGaussianBlur stdDeviation="50.6104" result="effect1_foregroundBlur_1304_1931" />
               </filter>
               <filter
                 id="filter1_f_1304_1931"
@@ -119,16 +102,8 @@
                 color-interpolation-filters="sRGB"
               >
                 <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="BackgroundImageFix"
-                  result="shape"
-                />
-                <feGaussianBlur
-                  stdDeviation="50.6104"
-                  result="effect1_foregroundBlur_1304_1931"
-                />
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                <feGaussianBlur stdDeviation="50.6104" result="effect1_foregroundBlur_1304_1931" />
               </filter>
               <filter
                 id="filter2_f_1304_1931"
@@ -140,16 +115,8 @@
                 color-interpolation-filters="sRGB"
               >
                 <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="BackgroundImageFix"
-                  result="shape"
-                />
-                <feGaussianBlur
-                  stdDeviation="70.8545"
-                  result="effect1_foregroundBlur_1304_1931"
-                />
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                <feGaussianBlur stdDeviation="70.8545" result="effect1_foregroundBlur_1304_1931" />
               </filter>
               <filter
                 id="filter3_f_1304_1931"
@@ -161,16 +128,8 @@
                 color-interpolation-filters="sRGB"
               >
                 <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="BackgroundImageFix"
-                  result="shape"
-                />
-                <feGaussianBlur
-                  stdDeviation="53.9844"
-                  result="effect1_foregroundBlur_1304_1931"
-                />
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                <feGaussianBlur stdDeviation="53.9844" result="effect1_foregroundBlur_1304_1931" />
               </filter>
               <filter
                 id="filter4_f_1304_1931"
@@ -182,16 +141,8 @@
                 color-interpolation-filters="sRGB"
               >
                 <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend
-                  mode="normal"
-                  in="SourceGraphic"
-                  in2="BackgroundImageFix"
-                  result="shape"
-                />
-                <feGaussianBlur
-                  stdDeviation="53.9844"
-                  result="effect1_foregroundBlur_1304_1931"
-                />
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                <feGaussianBlur stdDeviation="53.9844" result="effect1_foregroundBlur_1304_1931" />
               </filter>
             </defs>
           </svg>
@@ -199,11 +150,7 @@
 
         <div class="cc-logo">
           <span><img src="/cc-icon.svg" alt="ícone padrão de cartão" /></span>
-          <span
-            ><img
-              src="/cc-default.svg"
-              alt="ícone do cartão de crédito selecionado"
-          /></span>
+          <span><img src="/cc-default.svg" alt="ícone do cartão de crédito selecionado" /></span>
         </div>
 
         <div class="cc-info">
@@ -211,13 +158,13 @@
 
           <div class="cc-holder">
             <div class="label">Nome do titular</div>
-            <div class="value">FULANO DA SILVA</div>
+            <div class="value">SEU NOME AQUI</div>
           </div>
 
           <div class="cc-extra">
             <div class="cc-expiration">
               <div class="label">Expiração</div>
-              <div class="value">02/32</div>
+              <div class="value">00/00</div>
             </div>
             <div class="cc-security">
               <div class="label">CVV</div>
@@ -236,7 +183,7 @@
 
         <div class="input-wrapper">
           <label for="card-holder">Nome do titular</label>
-          <input id="card-holder" />
+          <input id="card-holder" maxlength="30" />
         </div>
 
         <div class="flex">
@@ -251,7 +198,7 @@
           </div>
         </div>
 
-        <button>ADICIONAR CARTÃO</button>
+        <button id="add-card">ADICIONAR CARTÃO</button>
       </form>
     </div>
 
